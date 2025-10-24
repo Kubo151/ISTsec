@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="sk" style="scroll-behavior: smooth;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jakub Nemčík | Osobné Portfólio</title>
+    <style>
+        /* Základné štýly pre celú stránku */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Hlavný kontajner pre obsah */
+        main {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        /* Štýl pre hlavnú hlavičku (modrý banner) */
+        header {
+            background: linear-gradient(135deg, #0056b3, #007bff);
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+            border-radius: 10px;
+        }
+
+        /* Všeobecný štýl pre jednotlivé sekcie ("slajdy") */
+        .slide {
+            padding: 40px;
+            background-color: #ffffff;
+            border-bottom: 2px solid #e0e0e0;
+            text-align: center;
+            min-height: 300px; /* Minimálna výška pre pocit slajdu */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+            border-radius: 10px;
+        }
+
+        /* Odstránenie čiary pod posledným slajdom */
+        .slide:last-child {
+            border-bottom: none;
+        }
+
+        /* Štýl pre hlavný nadpis v hlavičke */
+        h1 {
+            font-size: 2.4em;
+            margin-bottom: 10px;
+        }
+
+        /* Štýl pre nadpisy v sekciách */
+        h2 {
+            font-size: 2em;
+            color: #1a1a1a;
+            border-bottom: 3px solid #007bff;
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+
+        /* Štýl pre odseky a položky zoznamu */
+        p, li {
+            font-size: 1.2em;
+            line-height: 1.6;
+            max-width: 700px;
+        }
+
+        /* Štýl pre zoznamy s odrážkami */
+        ul {
+            list-style-type: disc; /* Odrážky */
+            text-align: left;
+            display: inline-block;
+        }
+
+        /* Špecifický štýl pre odseky v hlavičke (centrovanie) */
+        header p {
+            max-width: none;
+        }
+
+        /* Štýl pre odkazy vnútri slajdov */
+        .slide a {
+            color: #007bff; /* Modrá farba, aby ladila s dizajnom */
+            font-weight: bold;
+            text-decoration: none;
+        }
+        .slide a:hover {
+            text-decoration: underline; /* Podčiarknutie po prejdení myšou */
+        }
+
+        /* Štýl pre horné navigačné menu */
+        nav {
+            background-color: #fff;
+            padding: 10px 0;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000; /* Aby bola nav lišta vždy navrchu */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        /* Štýl pre odkazy v navigačnom menu */
+        nav a {
+            color: #0056b3;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: 500;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        nav a:hover {
+            background-color: #0056b3;
+            color: white;
+        }
+
+        /* Kontajner pre responzívne video (zachováva pomer strán) */
+        .video-container {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            max-width: 700px; /* Aby video nebolo príliš široké */
+            padding-top: 56.25%; /* Pomer strán 16:9 */
+            margin-top: 20px;
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Štýl pre obrázky v galérii */
+        #galeria img {
+            max-width: 300px; /* Prispôsobenie veľkosti loga */
+            height: auto;
+            margin-top: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease-in-out;
+        }
+        #galeria img:hover {
+            transform: scale(1.05);
+        }
+
+        /* --- Nové štýly pre sekciu Projektov --- */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            width: 100%;
+            margin-top: 30px;
+        }
+        .project-card {
+            background: #f9fbfc;
+            border: 1px solid #d9e3f0;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: left;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+        .project-card h3 {
+            color: #0056b3;
+            margin-top: 0;
+        }
+        .project-card p {
+            font-size: 1em; /* Menší text pre popis projektu */
+        }
+
+        /* Štýl pre logá v kontaktnej sekcii */
+        #kontakt .contact-logo {
+            display: block;
+            max-height: 80px; /* Obmedzenie výšky loga */
+            width: auto;
+            margin: 0 auto 15px auto; /* Centrovanie a medzera pod logom */
+        }
+
+        /* Obal pre kontaktné boxy (flexbox) */
+        #kontakt .contact-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: flex-start; /* Zarovnanie boxov na vrch */
+            gap: 40px;
+            width: 100%;
+            margin-top: 20px;
+        }
+        /* Štýl pre jednotlivý kontaktný box */
+        #kontakt .contact-box {
+            text-align: center; /* Centrovanie obsahu v boxe */
+            max-width: 300px;
+        }
+        #kontakt h3 {
+            font-size: 1.5em;
+            color: #0056b3;
+            margin-bottom: 10px;
+        }
+        #kontakt address {
+            text-align: left; /* Adresu zarovnáme doľava */
+            font-style: normal;
+            line-height: 1.7;
+        }
+        #kontakt address a {
+            font-weight: normal;
+        }
+
+        /* Štýly pre rozbaľovacie FAQ otázky */
+        details {
+            width: 100%;
+            max-width: 700px;
+            margin-bottom: 10px;
+            background: #f9fbfc;
+            border-radius: 12px;
+            padding: 15px;
+            border: 1px solid #d9e3f0;
+            text-align: left;
+        }
+        summary {
+            font-weight: bold;
+            cursor: pointer;
+            color: #0056b3;
+        }
+
+        /* Štýl pre tlačidlo "Späť na vrch" */
+        #toTop {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            display: none;
+            transition: 0.3s;
+            z-index: 1000;
+        }
+        #toTop:hover {
+            background: #0056b3;
+        }
+
+        /* Štýl pre pätičku stránky */
+        footer {
+            background: #1c1c1e;
+            color: white;
+            text-align: center;
+            padding: 25px 15px;
+            margin-top: 40px;
+            font-size: 0.95em;
+        }
+        /* Kontajner pre obsah pätičky (centrovanie) */
+        .footer-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- HORNÉ NAVIGAČNÉ MENU -->
+    <nav>
+        <a href="#domov">Domov</a>
+        <a href="#o-mne">O mne</a>
+        <a href="#projekty">Projekty</a>
+        <a href="#zrucnosti">Zručnosti</a>
+        <a href="#kontakt">Kontakt</a>
+    </nav>
+
+    <!-- HLAVNÁ HLAVIČKA STRÁNKY -->
+    <header id="domov">
+        <h1>Jakub Nemčík</h1>
+        <p style="font-size: 1.3em;">Budúci IT špecialista so zameraním na sieťové technológie a vývoj webu.</p>
+        <p>Vitaj na mojom osobnom portfóliu, kde prezentujem svoje projekty a zručnosti.</p>
+    </header>
+
+    <!-- HLAVNÝ OBSAH STRÁNKY -->
+    <main>
+
+        <!-- Sekcia: O mne -->
+        <div class="slide" id="o-mne">
+            <h2>O mne</h2>
+            <p>Som študent odboru Informačné a sieťové technológie na Spojenej škole Kollárova 17 v Sečovciach. Zaujímam sa o správu sietí, kybernetickú bezpečnosť a vývoj webových aplikácií. Vo voľnom čase sa venujem programovaniu a spoznávaniu nových technológií. Hľadám príležitosti, kde môžem uplatniť a ďalej rozvíjať svoje vedomosti.</p>
+        </div>
+
+        <!-- Sekcia: Projekty -->
+        <div class="slide" id="projekty">
+            <h2>Moje Projekty</h2>
+            <div class="project-grid">
+                <!-- Príklad projektu 1 -->
+                <div class="project-card">
+                    <h3>Názov Projektu 1</h3>
+                    <p>Stručný popis projektu. Čo robí, aký problém rieši a aké technológie boli použité. Napríklad: Webová aplikácia pre správu úloh postavená na HTML, CSS a JavaScripte.</p>
+                    <a href="#" target="_blank">Zobraziť projekt</a> | <a href="#" target="_blank">Zdrojový kód (GitHub)</a>
+                </div>
+                <!-- Príklad projektu 2 -->
+                <div class="project-card">
+                    <h3>Názov Projektu 2</h3>
+                    <p>Stručný popis projektu. Napríklad: Konfigurácia domácej siete s využitím zariadení MikroTik a implementácia základných bezpečnostných pravidiel.</p>
+                    <a href="#" target="_blank">Detailná dokumentácia</a>
+                </div>
+                <!-- Sem môžeš pridať ďalšie projekty -->
+                <div class="project-card">
+                    <h3>Názov Projektu 3</h3>
+                    <p>Stručný popis ďalšieho projektu. Môže to byť čokoľvek, na čom si pracoval v škole alebo vo voľnom čase.</p>
+                    <a href="#" target="_blank">Zobraziť projekt</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sekcia: Zručnosti -->
+        <div class="slide" id="zrucnosti">
+            <h2>Moje Zručnosti</h2>
+            <ul>
+                <li><strong>Siete:</strong> Konfigurácia routerov a switchov (MikroTik, Cisco), TCP/IP, DNS, DHCP</li>
+                <li><strong>Programovanie:</strong> Python, HTML(základy)</li>
+                <li><strong>Operačné systémy:</strong> Windows, Linux (základy správy)</li>
+                <li><strong>Iné:</strong> Virtualizácia (VirtualBox) </li>
+            </ul>
+        </div>
+
+        <!-- Sekcia: Kontakt -->
+        <div class="slide" id="kontakt">
+            <h2>Kontakt</h2>
+            <p>Ak ťa moja práca zaujala alebo máš nejaké otázky, neváhaj ma kontaktovať.</p>
+            <address style="text-align: center; font-size: 1.2em; margin-top: 20px;">
+                E-mail: <a href="mailto:nemcikjakub5@gmail.com">nemcikjakub5@gmail.com</a><br>
+                LinkedIn: <a href="#" target="_blank">Môj LinkedIn profil</a><br>
+                GitHub: <a href="#" target="_blank">Môj GitHub profil</a>
+            </address>
+        </div>
+
+    </main>
+
+    <!-- PÄTIČKA STRÁNKY S COPYRIGHTOM -->
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 Jakub Nemčík. Všetky práva vyhradené.</p>
+        </div>
+    </footer>
+
+    <!-- TLAČIDLO "SPÄŤ NA VRCH" -->
+    <div id="toTop" title="Hore">⬆</div>
+
+    <!-- JAVASCRIPT PRE FUNKČNOSŤ TLAČIDLA "SPÄŤ NA VRCH" -->
+    <script>
+        const toTop = document.getElementById("toTop");
+        window.onscroll = () => {
+            if (window.scrollY > 300) toTop.style.display = "block";
+            else toTop.style.display = "none";
+        };
+        toTop.onclick = () => window.scrollTo({top: 0, behavior: "smooth"});
+    </script>
+
+</body>
+
+</html>
